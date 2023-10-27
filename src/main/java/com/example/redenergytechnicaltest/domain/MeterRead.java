@@ -2,7 +2,6 @@
 
 package com.example.redenergytechnicaltest.domain;
 
-import com.example.redenergytechnicaltest.domain.simpleNem12.SimpleCSVConverter;
 import com.example.redenergytechnicaltest.enums.EnergyUnit;
 import com.opencsv.bean.AbstractBeanField;
 import com.opencsv.bean.CsvCustomBindByPosition;
@@ -25,14 +24,10 @@ import java.util.TreeMap;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MeterRead extends SimpleCSVConverter {
+public class MeterRead  {
 
-  @CsvCustomBindByPosition(position = 1, converter = StringConverter.class)
   private String nmi;
-
-  @CsvCustomBindByPosition(position = 2, converter = EnergyUnitConverter.class)
   private EnergyUnit energyUnit;
-
   private SortedMap<LocalDate, MeterVolume> volumes = new TreeMap<>();
 
   public MeterRead(String nmi, EnergyUnit energyUnit) {
