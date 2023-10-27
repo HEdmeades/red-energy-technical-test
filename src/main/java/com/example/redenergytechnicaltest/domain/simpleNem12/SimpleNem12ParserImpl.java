@@ -9,14 +9,12 @@ import com.example.redenergytechnicaltest.enums.RecordType;
 import com.example.redenergytechnicaltest.utils.BigDecimalUtils;
 import com.example.redenergytechnicaltest.utils.DateUtils;
 import javafx.util.Pair;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.File;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class SimpleNem12ParserImpl extends SimpleCSVParser implements SimpleNem12Parser {
 
@@ -25,7 +23,7 @@ public class SimpleNem12ParserImpl extends SimpleCSVParser implements SimpleNem1
         List<String[]> records = this.readRecords(simpleNem12File);
 
         if(records.size() < 2){
-            //We expect at least a 100 record in the first row and 900 record at the end
+            //We expect at least a 100 record in the first row and 900 record at the end row
             throw new RuntimeException("Invalid Nem12File");
         }
 
@@ -60,7 +58,7 @@ public class SimpleNem12ParserImpl extends SimpleCSVParser implements SimpleNem1
                             Pair<LocalDate, MeterVolume> dateMeterVolumePair = mapToLocalDateMeterVolumePair(lineItem);
                             map.get(currentNmi).appendVolume(dateMeterVolumePair.getKey(), dateMeterVolumePair.getValue());
                         } else {
-                            throw new RuntimeException("CSV parse file error. Meter volume found with no corresponding meter read");
+                            throw new RuntimeException("Invalid Nem12File. Meter volume found with no corresponding meter read");
                         }
                         break;
                 }
@@ -74,7 +72,7 @@ public class SimpleNem12ParserImpl extends SimpleCSVParser implements SimpleNem1
 
     public MeterRead mapToMeterRead(String[] record) throws Exception {
         MeterRead meterRead = new MeterRead();
-        meterRead.setNmi(ObjectUtils.defaultIfNull(record[1], null));
+        meterRead.setNmi(record[1]);
         meterRead.setEnergyUnit(EnergyUnit.fromString(record[2]));
 
         meterRead.validate();
