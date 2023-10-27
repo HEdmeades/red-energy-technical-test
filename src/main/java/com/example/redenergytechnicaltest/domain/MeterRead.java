@@ -62,17 +62,8 @@ public class MeterRead extends DomainObject {
 
   public BigDecimal getTotalVolume() {
     return volumes.values().stream()
-      .map(mr -> mr.getVolume())
+      .map(MeterVolume::getVolume)
       .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
-
-  public static class EnergyUnitConverter extends AbstractBeanField<String, EnergyUnit> {
-    @Override
-    protected EnergyUnit convert(String s) {
-      return EnergyUnit.valueOf(StringUtils.trimToNull(s));
-    }
-  }
-
-
 
 }
