@@ -13,11 +13,15 @@ public enum RecordType {
     }
 
     public static RecordType fromString(String val) {
+        if (val == null) {
+            throw new RuntimeException("Unable to parse RecordType of null");
+        }
+
         for (RecordType rt : RecordType.values()) {
             if (rt.value == Integer.parseInt(val)) {
                 return rt;
             }
         }
-        return null;
+        throw new RuntimeException(String.format("Unable to parse RecordType %s", val));
     }
 }

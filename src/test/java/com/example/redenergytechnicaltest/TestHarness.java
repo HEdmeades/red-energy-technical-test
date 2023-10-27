@@ -4,10 +4,13 @@ package com.example.redenergytechnicaltest;
 
 import com.example.redenergytechnicaltest.domain.MeterRead;
 import com.example.redenergytechnicaltest.domain.simpleNem12.SimpleNem12ParserImpl;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.Collection;
 
 /**
@@ -29,8 +32,52 @@ public class TestHarness {
 
     MeterRead read6123456789 = meterReads.stream().filter(mr -> mr.getNmi().equals("6123456789")).findFirst().get();
     System.out.println(String.format("Total volume for NMI 6123456789 is %f", read6123456789.getTotalVolume()));  // Should be -36.84
+    assert(StringUtils.equals(read6123456789.getTotalVolume().toPlainString(), "-36.84"));
 
     MeterRead read6987654321 = meterReads.stream().filter(mr -> mr.getNmi().equals("6987654321")).findFirst().get();
     System.out.println(String.format("Total volume for NMI 6987654321 is %f", read6987654321.getTotalVolume()));  // Should be 14.33
+    assert(StringUtils.equals(read6987654321.getTotalVolume().toPlainString(), "14.33"));
+  }
+
+  @Test
+  public void testFileLoad_extra_200_row() {
+    ClassLoader classLoader = TestHarness.class.getClassLoader();
+
+    simpleNem12File = new File(classLoader.getResource("testFiles/SimpleNem12-test-extra-200-row.csv").getFile());
+    Collection<MeterRead> meterReads = new SimpleNem12ParserImpl().parseSimpleNem12(simpleNem12File);
+
+    MeterRead read6123456789 = meterReads.stream().filter(mr -> mr.getNmi().equals("6123456789")).findFirst().get();
+    validateMeterRead(read6123456789, new BigDecimal("-36.84"));
+
+    MeterRead read6987654321 = meterReads.stream().filter(mr -> mr.getNmi().equals("6987654321")).findFirst().get();
+    validateMeterRead(read6987654321, new BigDecimal("14.33"));
+
+    MeterRead read123456 = meterReads.stream().filter(mr -> mr.getNmi().equals("123456")).findFirst().get();
+    validateMeterRead(read123456, new BigDecimal("0"));
+  }
+
+  private void validateMeterRead(MeterRead mr, BigDecimal expectedValue){
+    System.out.println(String.format("Total volume for NMI %s is %f", mr.getNmi(), mr.getTotalVolume()));
+    assert(StringUtils.equals(mr.getTotalVolume().toPlainString(), expectedValue.toPlainString()));
+  }
+
+  @Test
+  public void test_meter_volume_validation_meter_volume_null_value() {
+    ClassLoader classLoader = TestHarness.class.getClassLoader();
+
+    simpleNem12File = new File(classLoader.getResource("testFiles/SimpleNem12-invalid-file.csv").getFile());
+
+    Exception re = Assertions.assertThrows(Exception.class, () -> new SimpleNem12ParserImpl().parseSimpleNem12(simpleNem12File)) ;
+    assert(StringUtils.equals(re.getMessage(), "java.lang.Exception: MeterVolume: volume must not be null"));
+  }
+
+  @Test
+  public void testInvalidFile2Load_eof_character_not_last_line() {
+    ClassLoader classLoader = TestHarness.class.getClassLoader();
+
+    simpleNem12File = new File(classLoader.getResource("testFiles/SimpleNem12-invalid-eof-record.csv").getFile());
+
+    RuntimeException re = Assertions.assertThrows(RuntimeException.class, () -> new SimpleNem12ParserImpl().parseSimpleNem12(simpleNem12File)) ;
+    assert(StringUtils.equals(re.getMessage(), "java.lang.RuntimeException: Invalid Nem12File. EOF record 900 is not on the last line"));
   }
 }

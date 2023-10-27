@@ -4,12 +4,14 @@ package com.example.redenergytechnicaltest.domain;
 
 import com.example.redenergytechnicaltest.enums.EnergyUnit;
 import com.opencsv.bean.AbstractBeanField;
-import com.opencsv.bean.CsvCustomBindByPosition;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -24,10 +26,14 @@ import java.util.TreeMap;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MeterRead  {
+public class MeterRead extends DomainObject {
 
+  @NotBlank
   private String nmi;
+
+  @NotNull
   private EnergyUnit energyUnit;
+
   private SortedMap<LocalDate, MeterVolume> volumes = new TreeMap<>();
 
   public MeterRead(String nmi, EnergyUnit energyUnit) {

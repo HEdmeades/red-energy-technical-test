@@ -6,17 +6,24 @@ import com.example.redenergytechnicaltest.enums.Quality;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
+
 
 /**
  * Represents a meter volume with quality, values should come from RecordType 300
  */
 @Getter
 @Setter
-public class MeterVolume {
+@Valid
+public class MeterVolume extends DomainObject{
 
+  @NotNull
   private BigDecimal volume;
+
+  @NotNull
   private Quality quality;
 
   public MeterVolume(BigDecimal volume, Quality quality) {
