@@ -2,9 +2,14 @@
 
 package com.example.redenergytechnicaltest.domain;
 
+import com.example.redenergytechnicaltest.domain.simpleNem12.SimpleCSVConverter;
 import com.example.redenergytechnicaltest.enums.EnergyUnit;
+import com.opencsv.bean.AbstractBeanField;
+import com.opencsv.bean.CsvCustomBindByPosition;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,10 +24,15 @@ import java.util.TreeMap;
  */
 @Getter
 @Setter
-public class MeterRead {
+@NoArgsConstructor
+public class MeterRead extends SimpleCSVConverter {
 
+  @CsvCustomBindByPosition(position = 1, converter = StringConverter.class)
   private String nmi;
+
+  @CsvCustomBindByPosition(position = 2, converter = EnergyUnitConverter.class)
   private EnergyUnit energyUnit;
+
   private SortedMap<LocalDate, MeterVolume> volumes = new TreeMap<>();
 
   public MeterRead(String nmi, EnergyUnit energyUnit) {
@@ -54,4 +64,14 @@ public class MeterRead {
       .map(mr -> mr.getVolume())
       .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
+
+  public static class EnergyUnitConverter extends AbstractBeanField<String, EnergyUnit> {
+    @Override
+    protected EnergyUnit convert(String s) {
+      return EnergyUnit.valueOf(StringUtils.trimToNull(s));
+    }
+  }
+
+
+
 }

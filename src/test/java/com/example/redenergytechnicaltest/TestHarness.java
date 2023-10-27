@@ -3,7 +3,9 @@
 package com.example.redenergytechnicaltest;
 
 import com.example.redenergytechnicaltest.domain.MeterRead;
-import com.example.redenergytechnicaltest.domain.SimpleNem12ParserImpl;
+import com.example.redenergytechnicaltest.domain.simpleNem12.SimpleNem12ParserImpl;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.util.Collection;
@@ -11,11 +13,16 @@ import java.util.Collection;
 /**
  * Simple test harness for trying out SimpleNem12Parser implementation
  */
+@SpringBootTest
 public class TestHarness {
 
-  public static void main(String[] args) {
-    File simpleNem12File = new File(args[0]);
+  static File simpleNem12File;
 
+  @Test
+  public void testFileLoad() {
+    ClassLoader classLoader = TestHarness.class.getClassLoader();
+
+    simpleNem12File = new File(classLoader.getResource("testFiles/SimpleNem12.csv").getFile());
 
     // Uncomment below to try out test harness.
     Collection<MeterRead> meterReads = new SimpleNem12ParserImpl().parseSimpleNem12(simpleNem12File);

@@ -1,6 +1,6 @@
 // Copyright Red Energy Limited 2017
 
-package com.example.redenergytechnicaltest.domain;
+package com.example.redenergytechnicaltest.domain.simpleNem12;
 
 import com.example.redenergytechnicaltest.domain.MeterRead;
 
