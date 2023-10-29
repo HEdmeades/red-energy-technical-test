@@ -58,7 +58,7 @@ public class TestHarness {
   }
 
   private void validateMeterRead(MeterRead mr, BigDecimal expectedValue){
-    System.out.println(String.format("Total volume for NMI %s is %f", mr.getNmi(), mr.getTotalVolume()));
+    System.out.printf("Total volume for NMI %s is %f%n", mr.getNmi(), mr.getTotalVolume());
     assert(StringUtils.equals(mr.getTotalVolume().toPlainString(), expectedValue.toPlainString()));
   }
 

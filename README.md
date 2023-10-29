@@ -7,12 +7,13 @@
 I have tried to write this application as if it was going to a part of a bigger project. 
 I've abstracted out the code as much as I can for re-usability as if the project would grow and have many contributors.
 I have also implemented javax validation to the domain objects to firstly check the data is valid but also prepare this application
-for persistence layer.
+for a persistence layer.
 
 I have also added a few redundant/unnecessary comments just to explain my thinking. These are the sort of comments I would be making during a pull review.
 
-I extended the domain objects with a DomainObject class to implement generic validation.
-I also updated the domain objects to use Lombok to clean up the classes.
+I extended the domain objects with a DomainObject class to implement generic validation. <br />
+I have updated the domain objects to use Lombok to clean up the classes. <br />
+I have created a series of files to use for testing (this to simulate business test cases and end-to-end testing of the application). <br />
 
 ## Questions & Assumptions
 * Can I assume the file is a valid CSV?
