@@ -11,7 +11,6 @@ public enum EnergyUnit {
 
     KWH;
 
-
     public static EnergyUnit fromString(String val) {
         if (val == null) {
             throw new RuntimeException("Unable to parse EnergyUnit of null");

@@ -2,7 +2,7 @@
 
 package com.example.redenergytechnicaltest.domain.simpleNem12;
 
-import com.example.redenergytechnicaltest.domain.MeterRead;
+import com.example.redenergytechnicaltest.domain.meter.MeterRead;
 
 import java.io.File;
 import java.util.Collection;

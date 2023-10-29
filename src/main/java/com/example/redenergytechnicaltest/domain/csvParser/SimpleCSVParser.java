@@ -8,13 +8,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-public class SimpleCSVParser {
+public abstract class SimpleCSVParser {
 
     public List<String[]> readRecords(File simpleCSVFile) {
-        CSVReader csvReader;
         try {
-            csvReader = new CSVReader(new FileReader(simpleCSVFile));
-            return csvReader.readAll();
+            return new CSVReader(new FileReader(simpleCSVFile)).readAll();
         } catch (IOException | CsvException e) {
             throw new RuntimeException(e);
         }

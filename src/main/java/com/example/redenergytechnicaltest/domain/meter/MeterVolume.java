@@ -1,7 +1,8 @@
 // Copyright Red Energy Limited 2017
 
-package com.example.redenergytechnicaltest.domain;
+package com.example.redenergytechnicaltest.domain.meter;
 
+import com.example.redenergytechnicaltest.domain.DomainObject;
 import com.example.redenergytechnicaltest.enums.Quality;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Valid
-public class MeterVolume extends DomainObject{
+public class MeterVolume extends DomainObject {
 
   @NotNull
   private BigDecimal volume;

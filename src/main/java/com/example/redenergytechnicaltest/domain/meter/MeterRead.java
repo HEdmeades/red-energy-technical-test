@@ -1,16 +1,14 @@
 // Copyright Red Energy Limited 2017
 
-package com.example.redenergytechnicaltest.domain;
+package com.example.redenergytechnicaltest.domain.meter;
 
+import com.example.redenergytechnicaltest.domain.DomainObject;
 import com.example.redenergytechnicaltest.enums.EnergyUnit;
-import com.opencsv.bean.AbstractBeanField;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
