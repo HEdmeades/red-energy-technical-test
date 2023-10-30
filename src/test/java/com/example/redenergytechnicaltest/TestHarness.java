@@ -41,7 +41,7 @@ public class TestHarness {
   }
 
   @Test
-  public void testFileLoad_extra_200_row() {
+  public void testFileLoadExtra200Row() {
     ClassLoader classLoader = TestHarness.class.getClassLoader();
 
     simpleNem12File = new File(classLoader.getResource("testFiles/SimpleNem12-test-extra-200-row.csv").getFile());
@@ -63,7 +63,7 @@ public class TestHarness {
   }
 
   @Test
-  public void test_meter_volume_validation_meter_volume_null_value() {
+  public void testNullValueInMeterVolumeData() {
     ClassLoader classLoader = TestHarness.class.getClassLoader();
 
     simpleNem12File = new File(classLoader.getResource("testFiles/SimpleNem12-invalid-file.csv").getFile());
@@ -73,7 +73,7 @@ public class TestHarness {
   }
 
   @Test
-  public void testInvalidFile2Load_eof_character_not_last_line() {
+  public void testInvalidFile900RecordMidWayThroughFile() {
     ClassLoader classLoader = TestHarness.class.getClassLoader();
 
     simpleNem12File = new File(classLoader.getResource("testFiles/SimpleNem12-invalid-eof-record.csv").getFile());

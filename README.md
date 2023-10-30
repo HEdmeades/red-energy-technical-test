@@ -18,7 +18,7 @@ I have created a series of files to use for testing (this to simulate business t
 ## Questions & Assumptions
 * Can I assume the file is a valid CSV?
   * Assumption: Yes.
-* Can I assume the CSV won't have any trailing or leading empty spaces?
+* Can I assume the CSV won't have any trailing or leading empty spaces? (including blank rows)
   * Assumption: Yes, assume the CSV is valid and formatted correctly.
 * Can I assume the data will be valid?
   * Assumption: No. I have implemented validation methods to the domain object to validate this.
